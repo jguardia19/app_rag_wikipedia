@@ -16,28 +16,15 @@
             Investigar tema
           </div>
 
-          <q-input
-            v-model.trim="topic"
-            label="Tema"
-            placeholder="Ej: Roman Empire, Napoleon..."
-            outlined
-            :disable="loadingResearch"
-            @keyup.enter="onResearch"
-          >
+          <q-input v-model.trim="topic" label="Tema" placeholder="Ej: Roman Empire, Napoleon..." outlined
+            :disable="loadingResearch" @keyup.enter="onResearch">
             <template v-slot:prepend>
               <q-icon name="topic" />
             </template>
           </q-input>
 
-          <q-btn
-            label="Investigar"
-            color="primary"
-            class="full-width q-mt-md"
-            unelevated
-            :loading="loadingResearch"
-            :disable="!topic || loadingResearch"
-            @click="onResearch"
-          />
+          <q-btn label="Investigar" color="primary" class="full-width q-mt-md" unelevated :loading="loadingResearch"
+            :disable="!topic || loadingResearch" @click="onResearch" />
 
           <!-- Session Info -->
           <div v-if="sessionId" class="session-info q-mt-md">
@@ -77,14 +64,7 @@
               </div>
             </div>
             <div class="col-auto">
-              <q-btn
-                flat
-                dense
-                round
-                icon="delete_outline"
-                :disable="messages.length === 0"
-                @click="messages = []"
-              >
+              <q-btn flat dense round icon="delete_outline" :disable="messages.length === 0" @click="messages = []">
                 <q-tooltip>Limpiar chat</q-tooltip>
               </q-btn>
             </div>
@@ -103,19 +83,10 @@
           </div>
 
           <div v-else class="messages-list">
-            <div
-              v-for="(m, idx) in messages"
-              :key="idx"
-              class="message-item"
-              :class="`message-${m.role}`"
-            >
+            <div v-for="(m, idx) in messages" :key="idx" class="message-item" :class="`message-${m.role}`">
               <div class="message-bubble">
                 <div class="message-header">
-                  <q-avatar
-                    size="32px"
-                    :color="m.role === 'user' ? 'primary' : 'secondary'"
-                    text-color="white"
-                  >
+                  <q-avatar size="32px" :color="m.role === 'user' ? 'primary' : 'secondary'" text-color="white">
                     <q-icon :name="m.role === 'user' ? 'person' : 'smart_toy'" />
                   </q-avatar>
                   <span class="text-caption text-grey-7 q-ml-sm">{{ m.time }}</span>
@@ -123,13 +94,7 @@
                 <div class="message-text">{{ m.text }}</div>
 
                 <div v-if="m.role === 'assistant' && m.sources?.length" class="message-sources">
-                  <q-chip
-                    v-for="(s, i) in m.sources"
-                    :key="i"
-                    size="sm"
-                    clickable
-                    @click="openUrl(s)"
-                  >
+                  <q-chip v-for="(s, i) in m.sources" :key="i" size="sm" clickable @click="openUrl(s)">
                     <q-icon name="link" size="xs" class="q-mr-xs" />
                     {{ shorten(s) }}
                   </q-chip>
@@ -159,34 +124,14 @@
 
           <div class="row q-col-gutter-sm">
             <div class="col-12 col-sm-8">
-              <q-input
-                v-model.trim="question"
-                type="textarea"
-                autogrow
-                outlined
-                placeholder="Escribe tu pregunta..."
-                :disable="!sessionId || loadingAsk"
-                @keyup.ctrl.enter="onAsk"
-              />
+              <q-input v-model.trim="question" type="textarea" autogrow outlined placeholder="Escribe tu pregunta..."
+                :disable="!sessionId || loadingAsk" @keyup.ctrl.enter="onAsk" />
             </div>
             <div class="col-12 col-sm-4">
-              <q-select
-                v-model="topK"
-                :options="[2, 3, 4, 5, 6, 8, 10]"
-                label="Top K"
-                outlined
-                dense
-                :disable="!sessionId || loadingAsk"
-              />
-              <q-btn
-                label="Enviar"
-                color="primary"
-                class="full-width q-mt-sm"
-                unelevated
-                :loading="loadingAsk"
-                :disable="!sessionId || !question || loadingAsk"
-                @click="onAsk"
-              />
+              <q-select v-model="topK" :options="[2, 3, 4, 5, 6, 8, 10]" label="Top K" outlined dense
+                :disable="!sessionId || loadingAsk" />
+              <q-btn label="Enviar" color="primary" class="full-width q-mt-sm" unelevated :loading="loadingAsk"
+                :disable="!sessionId || !question || loadingAsk" @click="onAsk" />
             </div>
           </div>
         </q-card-section>
